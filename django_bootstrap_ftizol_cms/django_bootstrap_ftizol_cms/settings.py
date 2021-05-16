@@ -28,6 +28,11 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+PLACES_MAPS_API_KEY='AIzaSyASY43s1Jh865FHO2l8mj7ji9ng1A5Rgng'
+PLACES_MAP_WIDGET_HEIGHT=480
+PLACES_MAP_OPTIONS='{"center": { "lat": 38.971584, "lng": -95.235072 }, "zoom": 10}'
+PLACES_MARKER_OPTIONS='{"draggable": true}'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -37,6 +42,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'places',
+
+
 ]
 
 MIDDLEWARE = [
