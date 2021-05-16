@@ -13,6 +13,8 @@ Love, lum1nat
 
 good luck, have fun
 
+finished coding at 19:25
+
 *** end of note ***
 
 *** DATE ***
