@@ -59,23 +59,40 @@ class ft_Place_Admin(admin.ModelAdmin):
 # used for calculating profits and keeping track of workers
 
 
+def add_thousand_separator(number):
+    result = ""
+    loop_string = str(number)
+    index = 0
+    total_numbers = 0
+    for number in loop_string:
+        result += number
+        index += 1
+        total_numbers += 1
+        if index == 3 and total_numbers != len(loop_string):
+            result += ","
+            index = 0
+
+    return result
+
+
 @admin.register(ft_Event)
 class ft_Event_Admin(admin.ModelAdmin):
     list_display = ["name", "place", "show_workers", "show_total_price",
                     "show_expenses", "show_profit", ]
-    list_filter = ["place", ]
+    list_filter = ["place"]
 
     def show_total_price(self, obj):
         if obj.total_meters and obj.czk_per_meter:
-            return str(int(obj.total_meters * obj.czk_per_meter)) + ' Kč'
+            return add_thousand_separator(int(obj.total_meters * obj.czk_per_meter)) + ' Kč'
         else:
             return 'Nedostatek informací! (error)'
 
     show_total_price.short_description = 'Celková cena'
 
     def show_expenses(self, obj):
+
         if obj.total_meters and obj.czk_per_meter:
-            return str(int(obj.total_meters * 450)) + ' Kč'
+            return add_thousand_separator((int(obj.total_meters * 450))) + ' Kč'
         else:
             return 'Nedostatek informací! (error)'
 
@@ -83,7 +100,7 @@ class ft_Event_Admin(admin.ModelAdmin):
 
     def show_profit(self, obj):
         if obj.total_meters and obj.czk_per_meter:
-            return str(int(obj.total_meters * obj.czk_per_meter) - int(obj.total_meters * 450)) + " Kč"
+            return add_thousand_separator(int(obj.total_meters * obj.czk_per_meter) - int(obj.total_meters * 450)) + " Kč"
         else:
             return 'Nedostatek informací! (error)'
 
@@ -106,8 +123,33 @@ class ft_Event_Admin(admin.ModelAdmin):
 
 @admin.register(ft_Upcoming_Event)
 class ft_Event_Admin(admin.ModelAdmin):
-    list_display = ["name", "place"]
+    list_display = ["name", "place", "show_workers", "show_capacity"]
     list_filter = ["place"]
+
+    def show_workers(self, obj):
+        result = ""
+        if obj.workers_ready.all():
+            for worker in obj.workers_ready.all():
+                result += worker.first_name + " " + worker.last_name + "<br>"
+        return mark_safe(result)
+    show_workers.short_description = 'Dostupní Vrtači'
+    show_workers.allow_tags = True
+
+    def show_capacity(self, obj):
+        result = ""
+        workers_req = int(obj.workers_required)
+        workers_ready = int(obj.workers_ready.count())
+        if obj.workers_ready.count() != 0 and workers_req > workers_ready:
+            result = "<b>" + str(obj.workers_ready.count()) + " / " + \
+                str(obj.workers_required) + "</b>"
+        else:
+            result = str(obj.workers_ready.count()) + " / " + \
+                str(obj.workers_required)
+
+        return mark_safe(result)
+
+    show_capacity.short_description = 'Kapacita'
+    show_capacity.allow_tags = True
 
     '''
     def view_workers(self, obj):
