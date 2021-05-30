@@ -1,16 +1,25 @@
 from django.contrib import admin
 from django.template.defaultfilters import escape
 from django.urls import reverse
+from django.utils.safestring import mark_safe
 
-from .models import ft_Company, ft_Place, ft_Event, ft_Worker
+
+from .models import ft_Company, ft_Place, ft_Event, ft_Worker, ft_Upcoming_Event
 # Register your models here.
+
+# ft_Worker
+# the most essential part of this, also has all the personal info of workers
+#
 
 
 @admin.register(ft_Worker)
 class ft_Worker_Admin(admin.ModelAdmin):
-    list_display = ["get_name", "phone_number"]
+    list_display = ["get_name", "phone_number", "bank_account_number"]
     fields = ["first_name", "last_name", "gender", "phone_number",
-              "email", "bank_account_number", "username"]
+              "email", "bank_account_number", "username", "social_security_number", "date_of_birth"]
+
+    search_fields = ["first_name", "last_name", "gender", "phone_number",
+                     "email", "bank_account_number", "username"]
 
     def get_name(self, obj):
         if obj.first_name and obj.last_name:
@@ -19,6 +28,9 @@ class ft_Worker_Admin(admin.ModelAdmin):
             return 'Jméno nenalezeno!'
 
     get_name.short_description = 'Jméno'
+
+# ft_Company
+# References a company we work(ed) with
 
 
 @admin.register(ft_Company)
@@ -33,17 +45,24 @@ class ft_Company_Admin(admin.ModelAdmin):
 
     get_name.short_description = 'Jméno'
 
+# ft_Place
+# References a town and a region
+
 
 @admin.register(ft_Place)
 class ft_Place_Admin(admin.ModelAdmin):
     list_display = ["name", "region"]
     list_filter = ["region", ]
 
+# ft_Event
+# Already passed event
+# used for calculating profits and keeping track of workers
+
 
 @admin.register(ft_Event)
 class ft_Event_Admin(admin.ModelAdmin):
-    list_display = ["name", "place", "show_total_price",
-                    "show_expenses", "show_profit", "show_place", "show_workers"]
+    list_display = ["name", "place", "show_workers", "show_total_price",
+                    "show_expenses", "show_profit", ]
     list_filter = ["place", ]
 
     def show_total_price(self, obj):
@@ -64,19 +83,11 @@ class ft_Event_Admin(admin.ModelAdmin):
 
     def show_profit(self, obj):
         if obj.total_meters and obj.czk_per_meter:
-            return (int(obj.total_meters * obj.czk_per_meter) - int(obj.total_meters * 450))
+            return str(int(obj.total_meters * obj.czk_per_meter) - int(obj.total_meters * 450)) + " Kč"
         else:
             return 'Nedostatek informací! (error)'
 
     show_profit.short_description = 'Čistý zisk'
-
-    def show_place(self, obj):
-        if obj.place.name:
-            return obj.place.name
-        else:
-            return "Místo nenalezeno."
-
-    show_place.short_description = 'Místo'
 
     def show_workers(self, obj):
         result = ""
@@ -85,9 +96,18 @@ class ft_Event_Admin(admin.ModelAdmin):
                 # result += '<a href="%s">%s</a>' % (reverse("admin:auth_user_change", args=(
                 # worker.id,)), escape(worker.first_name + " " + worker.last_name))
                 result += worker.first_name + " " + worker.last_name + "<br>"
-        return result
+        return mark_safe(result)
     show_workers.short_description = 'Vrtači'
     show_workers.allow_tags = True
+
+
+# ft_Upcoming_Event
+# An upcoming event to which a worker can sign up to
+
+@admin.register(ft_Upcoming_Event)
+class ft_Event_Admin(admin.ModelAdmin):
+    list_display = ["name", "place"]
+    list_filter = ["place"]
 
     '''
     def view_workers(self, obj):
