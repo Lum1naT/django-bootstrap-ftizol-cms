@@ -96,8 +96,6 @@ class ft_Event(models.Model):
     company_worked_with = models.ManyToManyField(
         ft_Company, verbose_name=("Spolupracující"), blank=True)
 
-    photos = models.ImageField(upload_to='events', blank=True, null=True)
-
     class Meta:
         # Add verbose name
         verbose_name = 'Akce'
