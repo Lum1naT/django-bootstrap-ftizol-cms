@@ -24,9 +24,15 @@ urlpatterns = [
     path('event-signup', views.event_signup, name="event_signup"),
     path('my-account/', views.my_account, name="my_account"),
     path('frogot-password/', views.frogot_password, name="frogot_password"),
-    path('upcoming-events/', views.upcoming_events,
+    path('events/upcoming/', views.upcoming_events,
          name="upcoming_events"),
-    path('upcoming-events/<int:event_id>', views.upcoming_event_detail,
+
+    path('events/ready-for/', views.upcoming_events,
+         name="upcoming_events"),
+
+    path('events/', views.upcoming_events,
+         name="upcoming_events"),
+    path('events/upcoming/<int:event_id>', views.upcoming_event_detail,
          name="upcoming_event_detail"),
 
 ]

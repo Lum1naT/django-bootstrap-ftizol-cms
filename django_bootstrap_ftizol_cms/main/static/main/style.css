@@ -63,5 +63,16 @@ body h1 .badge {
 .offcanvas .nav {
   background-color: #646464 !important;
 }
+.offcanvas a {
+  color: white !important;
+}
+.offcanvas a:hover {
+  text-decoration: underline !important;
+  color: white !important;
+}
+.offcanvas .dropdown .dropdown-menu {
+  background-color: #646464;
+  color: white;
+}
 
 /*# sourceMappingURL=style.css.map */

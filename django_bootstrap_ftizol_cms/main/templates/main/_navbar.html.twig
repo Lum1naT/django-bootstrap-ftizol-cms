@@ -11,10 +11,10 @@
         omega.href = res[0]+"/"+res[1]+"/"+res[2]+"/"+res[3]+"/"+res[4]
 
     var link_upcoming_events = document.getElementById('link_upcoming_events'); //or grab it by tagname etc
-        link_upcoming_events.href = res[0]+"/"+res[1]+"/"+res[2]+"/"+res[3]+"/"+res
+        link_upcoming_events.href = res[0]+"/"+res[1]+"/"+res[2]+"/"+res[3]+"/"+res[4]
 
-    var link_frogot_password = document.getElementById(''); //or grab it by tagname etc
-        omega.href = res[0]+"/"+res[1]+"/"+res[2]+"/"+res[3]+"/"+res[4]
+    var link_frogot_password = document.getElementById('link_frogot_password'); //or grab it by tagname etc
+        omega.href = res[0]+"/"+res[1]+"/"+res[2]+"/"+res[3]+"/"
 
     });
 
@@ -33,7 +33,7 @@
     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body">
-   <nav class="nav flex-column navbar-expand-lg">
+   <nav class="nav flex-column navbar-expand-lg navbar-text">
   <div class="container-fluid">
     <a class="navbar-brand" href="#"> </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,12 +41,17 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarScroll">
       <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+      <br>
         <li class="nav-item">
-          <a class="nav-link active" id="link_upcoming_events" aria-current="page" href="#">Nadcházející Akce</a>
+          <a class="nav-link" id="link_upcoming_events" aria-current="page" href="#">Akce</a>
         </li>
+        <br>
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+          <a class="nav-link" id='link_frogot_password' href="#">Zapomenuté heslo?</a>
+
         </li>
+        <br>
+
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Link
@@ -58,19 +63,12 @@
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
         </li>
+        <br>
+
 
     </div>
   </div>
 </nav>
-    <div class="dropdown mt-3">
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
-        Dropdown button
-      </button>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <li><a class="dropdown-item" href="#">Action</a></li>
-        <li><a class="dropdown-item" href="#">Another action</a></li>
-        <li><a class="dropdown-item" href="#">Something else here</a></li>
-      </ul>
-    </div>
+    
   </div>
 </div>
