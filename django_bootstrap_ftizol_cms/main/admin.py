@@ -155,7 +155,15 @@ class ft_Event_Admin(admin.ModelAdmin):
 @admin.register(ft_Upcoming_Event)
 class ft_Event_Admin(admin.ModelAdmin):
     list_display = ["name", "place", "show_workers", "show_capacity"]
-    list_filter = ["place"]
+    list_filter = ["place", "start_month", "year"]
+
+    fields = ["name", "start_date", "end_date", "description",
+              "place", "total_meters", "wall_type", "workers_required"]
+
+    readonly_fields = ["workers_required", ]
+
+    search_fields = ["name", "last_name", "display_name", "gender", "phone_number",
+                     "email", "bank_account_number", "username", "password", "date_of_birth"]
 
     def show_workers(self, obj):
         result = ""
