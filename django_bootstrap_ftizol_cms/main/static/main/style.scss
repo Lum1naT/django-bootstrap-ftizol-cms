@@ -1,69 +1,81 @@
-$gray-200:rgb(100, 100, 100);
-$gray-400:rgb(100, 100, 100);
-$gray-600:rgb(42, 42, 42);
-$primary-color: rgb(21, 21, 21);
-$secondary-color: rgb(255, 255, 255);
-$accent-color-dark: rgb(169, 69, 0);
-$accent-color-light: rgb(255, 136, 63);
-body {
-    background-color: $primary-color !important;
-    color: $secondary-color !important;
-    text-align: center !important;
-    margin: auto !important;
-    button {
-        background-color: $secondary-color !important;
-        color: $accent-color-dark !important;
-        &:hover {
-            background-color: $accent-color-dark !important;
-            color: $secondary-color !important;
+    $gray-200:rgb(100, 100, 100);
+    $gray-400:rgb(100, 100, 100);
+    $gray-600:rgb(42, 42, 42);
+    $primary-color: rgb(21, 21, 21);
+    $secondary-color: rgb(255, 255, 255);
+    $accent-color-dark: rgb(169, 69, 0);
+    $accent-color-light: rgb(255, 136, 63);
+    body {
+        background-color: $primary-color !important;
+        color: $secondary-color !important;
+        text-align: center !important;
+        margin: auto !important;
+        button {
+            background-color: $secondary-color !important;
+            color: $accent-color-dark !important;
+            &:hover {
+                background-color: $accent-color-dark !important;
+                color: $secondary-color !important;
+            }
+        }
+        input {
+            &:focus {
+                background-color: $gray-200 !important;
+                border: 5px solid $accent-color-dark !important;
+                color: $secondary-color !important;
+                // height: 1rem;
+            }
+        }
+        b {
+            color: $accent-color-light;
+        }
+        .heading-events {
+            margin: 1rem 0.2rem 0.2rem 0.2rem !important;
+        }
+        h1 {
+            .badge {
+                font-size: 2.5rem !important;
+            }
         }
     }
-    input {
-        &:focus {
+    
+    .worker-not-found {
+        color: $accent-color-light !important;
+    }
+    
+    .change-password {
+        h2 {
+            margin-top: 1.5rem !important;
+        }
+        button {
+            margin-top: 1rem;
+        }
+    }
+    
+    .row-striped:nth-of-type() {
+        text-align: left;
+    }
+    
+    .row-striped:nth-of-type(odd) {
+        text-align: left;
+    }
+    
+    .row-striped:nth-of-type(even) {
+        text-align: left;
+    }
+    
+    .row-striped {
+        padding: 15px 0;
+    }
+    
+    .offcanvas {
+        .offcanvas-body {
+            background-color: $gray-600 !important;
+        }
+        .offcanvas-header {
+            background-color: $gray-600 !important;
+        }
+        .nav {
             background-color: $gray-200 !important;
-            border: 5px solid $accent-color-dark !important;
-            color: $secondary-color !important;
-            // height: 1rem;
         }
     }
-    b {
-        color: $accent-color-light;
-    }
-    .heading-events {
-        margin: 1rem 0.2rem 0.2rem 0.2rem !important;
-    }
-    h1 {
-        .badge {
-            font-size: 2.5rem !important;
-        }
-    }
-}
-
-.worker-not-found {
-    color: $accent-color-light !important;
-}
-
-.change-password {
-    h2 {
-        margin-top: 1.5rem !important;
-    }
-    button {
-        margin-top: 1rem;
-    }
-}
-
-.row-striped:nth-of-type() {
-    text-align: left;
-}
-
-.row-striped:nth-of-type(odd) {
-    text-align: left;
-}
-
-.row-striped:nth-of-type(even) {
-    text-align: left;
-}
-
-.row-striped {
-    padding: 15px 0;
-}
