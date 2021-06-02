@@ -23,5 +23,9 @@ urlpatterns = [
     path('login/', views.login, name="login"),
     path('my-account/', views.my_account, name="my_account"),
     path('frogot-password/', views.frogot_password, name="frogot_password"),
-    path('upcoming-events/', views.upcoming_events, name="upcoming_events"),
+    path('upcoming-events/', views.upcoming_events,
+         name="upcoming_events"),
+    path('upcoming-events/<int:event_id>', views.upcoming_event_detail,
+         name="upcoming_event_detail"),
+
 ]

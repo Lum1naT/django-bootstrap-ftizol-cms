@@ -17,6 +17,12 @@ body input:focus {
   border: 5px solid #a94500 !important;
   color: white !important;
 }
+body .heading-events {
+  margin: 1rem 0.2rem 0.2rem 0.2rem !important;
+}
+body h1 .badge {
+  font-size: 2.5rem !important;
+}
 
 .worker-not-found {
   color: #ff883f !important;

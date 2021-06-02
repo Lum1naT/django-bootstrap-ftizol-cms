@@ -13,7 +13,7 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
     <div class="container">
-               <h1 class="px-10">Nadcházející akce </h1>
+               <h1 class="heading-events">Nadcházející akce </h1>
 
                             <br>
                             <hr>
@@ -27,22 +27,24 @@
     {% for event in events %}
 
 
-            	
 		<div class="row row-striped">
 			<div class="col-md-2 col-12 text-center">
                         
-				<h1 class="display-4"><span class="badge badge-secondary">{{ event.start_date|format_date('short', 'none', locale='cs') }}
+				<h1 class="display-4"><span class="badge badge-secondary">{{event.start_day}}.{{event.start_month}} -
+                    <br> {{ event.end_day}}.{{event.end_month}}
 
 </span></h1>
 			</div>
 			<div class="col-10">
-				<h3 class="text-uppercase"><strong>{{event.name}}</strong></h3>
+			        <a href="{{event.id}}">
+	<h3 class="text-uppercase"><strong>{{event.name}}</strong></h3> </a>
 				<ul class="list-inline">
-				    <li class="list-inline-item"><i class="fa fa-calendar-o" aria-hidden="true"></i> Monday</li>
+				    <li class="list-inline-item"><i class="fa fa-calendar-o" aria-hidden="true"></i> 
+</p>
 					<li class="list-inline-item"><i class="fa fa-clock-o" aria-hidden="true"></i> 12:30 PM - 2:00 PM</li>
-					<li class="list-inline-item"><i class="fa fa-location-arrow" aria-hidden="true"></i> Cafe</li>
+					<li class="list-inline-item"><i class="fa fa-location-arrow" aria-hidden="true"></i> {{event.wall_type}}</li>
 				</ul>
-				<p>Lorem ipsum dolsit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+				<p>{{event.description}}</p>
 			</div>
 		</div>
 

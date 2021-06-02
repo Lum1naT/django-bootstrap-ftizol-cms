@@ -1,0 +1,85 @@
+{% extends "./_base.html.twig" %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+
+
+{% block body %}
+    <script>
+    window.addEventListener("load", function(){
+    var str = window.location.href;
+    var res = str.split("/");
+    var res4int = parseInt(res[4], 10);
+    console.log(res[4]);
+
+    var alpha = document.getElementById('next-page'); //or grab it by tagname etc
+
+    next_page = res4int+10
+    prev_page = res4int
+    if(res4int !== 5)  prev_page = res4int-10;
+
+    alpha.href = res[0]+"/"+res[1]+"/"+res[2]+"/"+res[3]+"/"+ next_page
+
+
+    var omega = document.getElementById('prev-page'); //or grab it by tagname etc
+        omega.href = res[0]+"/"+res[1]+"/"+res[2]+"/"+res[3]+"/"+ prev_page
+
+    });
+
+    </script>
+
+    <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <div class="container">
+               <h1 class="px-10"> Detail Akce - {{ event.name }} </h1>
+
+                            <br>
+                            <hr>
+        <div class="row">
+          <div class="col-12 col-md-12">
+
+
+                        <h3>{{ event.start_date }} - {{ event.end_date }}</h3>
+
+
+          <h3>Typ zdiva: {{ event.wall_type }} </h3>
+          <h3>Místo: {{ event.place }} </h3>
+          <h3>Celkem metrů<sup>2</sup>: {{ event.total_meters }} </h3>
+          <br>
+          <h3>Vrtačů potřeba: {{ event.workers_required }} </h3>
+          <h3>Dostupní vrtači: {{ event.workers_ready.count }} </h3>
+          <br>
+            <a id="prev-page" href=""><<< předchozí</a>
+            -
+          <a id="next-page" href=""> další >>></a>
+
+
+
+
+
+    </div>
+
+
+
+
+          <div class="col-12 col-md-2">
+            </div>
+
+
+    </div>
+</div>
+
+
+
+</div>
+
+
+
+           
+	
+
+
+{% endblock %}

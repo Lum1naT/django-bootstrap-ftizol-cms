@@ -27,6 +27,7 @@ def login(request):
                     # Username ok, password matches :)
                     # set sessions
                     request.session['username'] = form_username
+                    request.session['id'] = worker_found.id
                     return redirect('my_account')
 
                 # Username ok, password does not match!
@@ -47,7 +48,7 @@ def my_account(request):
     cookie_username = request.session['username']
     worker_found = get_object_or_404(ft_Worker, username=cookie_username)
     worker_username = worker_found.username
-    return render(request, 'main/worker_account.html.twig', {'title': worker_username + ' - Můj Účet', 'worker': worker_found})
+    return render(request, 'main/worker_account.html.twig', {'title': str(worker_found.id) + worker_username + ' - Můj Účet', 'worker': worker_found})
 
 
 def frogot_password(request):
@@ -59,4 +60,22 @@ def frogot_password(request):
 def upcoming_events(request):
     all_upcoming_events = ft_Upcoming_Event.objects.all().order_by('start_date')
 
+   # print(x.strftime("%A"))
+
     return render(request, 'main/upcoming_events.html.twig', {'title': 'Nadcházející akce', 'events': all_upcoming_events})
+
+
+def upcoming_event_detail(request, event_id):
+    event_found = ft_Upcoming_Event.objects.get(id=event_id)
+
+    all_upcoming_events = ft_Upcoming_Event.objects.all()
+
+    if(event_found):
+        # OK
+        session_id = request.session['id']
+        return render(request, 'main/upcoming_event_detail.html.twig', {'title': str(event_id) + 'Na ' + str(session_id) + 'dcházející akce ', 'event': event_found, 'session_id': session_id, 'upcoming_events': all_upcoming_events})
+    else:
+        # not found
+        return HttpResponse("Bohužel jsme takovou akci nenašli :(")
+
+        # print(x.strftime("%A"))
