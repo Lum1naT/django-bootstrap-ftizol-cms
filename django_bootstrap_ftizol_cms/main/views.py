@@ -28,7 +28,7 @@ def login(request):
                     # set sessions
                     request.session['username'] = form_username
                     request.session['id'] = worker_found.id
-                    return redirect('my_account')
+                    return redirect('upcoming_events')
 
                 # Username ok, password does not match!
                 return HttpResponse("Your username and password didn't match.")
@@ -78,4 +78,38 @@ def upcoming_event_detail(request, event_id):
         # not found
         return HttpResponse("Bohužel jsme takovou akci nenašli :(")
 
-        # print(x.strftime("%A"))
+
+def event_signup(request):
+
+    if request.method == 'POST':
+
+        event_id = request.POST.get('event_id', '')
+        session_id = request.POST.get('session_id', '')
+        ready = request.POST.get('ready', '')
+
+        worker_found = get_object_or_404(ft_Worker, id=int(session_id))
+        event_found = get_object_or_404(ft_Upcoming_Event, id=int(event_id))
+
+        if(worker_found and event_found):
+            # OK
+            worker = worker_found
+            event = event_found
+            if(ready == "true"):
+                event.workers_ready.add(worker)
+            elif (ready == "false"):
+                event.workers_ready.remove(worker)
+
+            event.save()
+            pass
+
+    else:
+        pass
+    all_upcoming_events = ft_Upcoming_Event.objects.all()
+
+    if(event_found):
+        # OK
+        session_id = request.session['id']
+        return render(request, 'main/upcoming_event_detail.html.twig', {'title': str(event_id) + 'Na ' + str(session_id) + 'dcházející akce ', 'event': event_found, 'session_id': session_id, 'upcoming_events': all_upcoming_events})
+    else:
+        # not found
+        return HttpResponse("Bohužel jsme takovou akci nenašli :(")

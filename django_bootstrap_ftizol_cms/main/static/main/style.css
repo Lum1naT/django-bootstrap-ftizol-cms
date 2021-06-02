@@ -17,6 +17,9 @@ body input:focus {
   border: 5px solid #a94500 !important;
   color: white !important;
 }
+body b {
+  color: #ff883f;
+}
 body .heading-events {
   margin: 1rem 0.2rem 0.2rem 0.2rem !important;
 }
