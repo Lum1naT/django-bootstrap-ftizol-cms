@@ -1,0 +1,9 @@
+$primary-color: rgb(21, 21, 21);
+$secondary-color: rgb(255, 255, 255);
+$accent-color: rgb(55, 14, 14);
+body {
+    background-color: $primary-color !important;
+    color: $secondary-color !important;
+    text-align: center !important;
+    margin: auto !important;
+}

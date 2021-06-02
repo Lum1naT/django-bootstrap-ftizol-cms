@@ -20,5 +20,5 @@ from . import views
 
 
 urlpatterns = [
-    path('akce/', views.index, name="index"),
+    path('login/', views.login, name="login"),
 ]

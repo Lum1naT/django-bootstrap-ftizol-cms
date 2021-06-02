@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.template.defaultfilters import escape
 from django.urls import reverse
 from django.utils.safestring import mark_safe
+import unidecode
 
 
 from .models import ft_Company, ft_Place, ft_Event, ft_Worker, ft_Upcoming_Event
@@ -14,16 +15,20 @@ from .models import ft_Company, ft_Place, ft_Event, ft_Worker, ft_Upcoming_Event
 
 @admin.register(ft_Worker)
 class ft_Worker_Admin(admin.ModelAdmin):
-    list_display = ["get_name", "phone_number", "bank_account_number"]
+    list_display = ["get_name", "phone_number",
+                    "bank_account_number"]
     fields = ["first_name", "last_name", "gender", "phone_number",
-              "email", "bank_account_number", "username", "social_security_number", "date_of_birth"]
+              "email", "bank_account_number", "username", "password", "date_of_birth"]
 
     search_fields = ["first_name", "last_name", "gender", "phone_number",
                      "email", "bank_account_number", "username"]
 
+    readonly_fields = ('password', )
+
     def get_name(self, obj):
+        username = obj.last_name[0:6] + obj.first_name[0]
         if obj.first_name and obj.last_name:
-            return obj.first_name + " " + obj.last_name
+            return obj.first_name + " " + obj.last_name + " / " + unidecode.unidecode(username).lower()
         else:
             return 'Jméno nenalezeno!'
 
