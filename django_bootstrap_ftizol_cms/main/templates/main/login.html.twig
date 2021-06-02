@@ -17,4 +17,10 @@
     <input type="submit" value="Přihlásit se">
     </form>
 
+
+    {% if worker_not_found %}
+        <h6 class="worker-not-found"> Chyba: Uživatelské jméno nenalezeno <h6>
+    {% endif %}
+
+
 {% endblock %}

@@ -15,7 +15,7 @@ from .models import ft_Company, ft_Place, ft_Event, ft_Worker, ft_Upcoming_Event
 
 @admin.register(ft_Worker)
 class ft_Worker_Admin(admin.ModelAdmin):
-    list_display = ["get_name", "phone_number",
+    list_display = ["get_name", "get_call_phone",
                     "bank_account_number"]
     fields = ["first_name", "last_name", "gender", "phone_number",
               "email", "bank_account_number", "username", "password", "date_of_birth"]
@@ -23,7 +23,7 @@ class ft_Worker_Admin(admin.ModelAdmin):
     search_fields = ["first_name", "last_name", "gender", "phone_number",
                      "email", "bank_account_number", "username"]
 
-    readonly_fields = ('password', )
+   # readonly_fields = ('password', )
 
     def get_name(self, obj):
         username = obj.last_name[0:6] + obj.first_name[0]
@@ -33,6 +33,23 @@ class ft_Worker_Admin(admin.ModelAdmin):
             return 'Jméno nenalezeno!'
 
     get_name.short_description = 'Jméno'
+
+    def get_call_phone(self, obj):
+        phone_number = str(obj.phone_number)
+        result = "Neznámý tel."
+        if(phone_number == "None"):
+            return result
+        if(phone_number.startswith("+")):
+            result = '<a href="tel:' + phone_number + '">' + phone_number + '</a>'
+        else:
+            # <a href="tel:5554280940"></a>
+            result = '<a href="tel:+420' + phone_number + \
+                '">' + '+420 ' + phone_number + '</a>'
+
+        return mark_safe(result)
+
+    get_call_phone.allow_tags = True
+    get_call_phone.short_description = "Tel. číslo"
 
 # ft_Company
 # References a company we work(ed) with

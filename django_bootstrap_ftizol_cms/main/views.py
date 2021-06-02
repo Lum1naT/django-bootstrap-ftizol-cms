@@ -4,7 +4,7 @@ from django.http import HttpResponse
 
 
 from .forms import WorkerAuthMailForm
-from .models import ft_Worker
+from .models import ft_Worker, ft_Upcoming_Event
 
 
 # Create your views here.
@@ -23,21 +23,40 @@ def login(request):
             worker_found = get_object_or_404(ft_Worker, username=form_username)
 
             if(worker_found):
+                if(worker_found.password == form_password):
+                    # Username ok, password matches :)
+                    # set sessions
+                    request.session['username'] = form_username
+                    return redirect('my_account')
+
                 # Username ok, password does not match!
                 return HttpResponse("Your username and password didn't match.")
 
-            elif(worker_found.password == form_password):
-                # Username ok, password matches :)
-                pass
             else:
                 form = WorkerAuthMailForm()
-                return render(request, 'main/login.html.twig', {'form': form})
-
-            # redirect to a new URL:
-            return redirect('admin/')
+                return render(request, 'main/login.html.twig', {'form': form, 'worker_not_found': form_username})
 
     # if a GET (or any other method) we'll create a blank form
     else:
         form = WorkerAuthMailForm()
 
     return render(request, 'main/login.html.twig', {'form': form})
+
+
+def my_account(request):
+    cookie_username = request.session['username']
+    worker_found = get_object_or_404(ft_Worker, username=cookie_username)
+    worker_username = worker_found.username
+    return render(request, 'main/worker_account.html.twig', {'title': worker_username + ' - Můj Účet', 'worker': worker_found})
+
+
+def frogot_password(request):
+    cookie_username = request.session['username']
+    username = cookie_username
+    return render(request, 'main/frogot_password.html.twig', {'title': 'Zapomenuté heslo?', 'username': username})
+
+
+def upcoming_events(request):
+    all_upcoming_events = ft_Upcoming_Event.objects.all().order_by('start_date')
+
+    return render(request, 'main/upcoming_events.html.twig', {'title': 'Nadcházející akce', 'events': all_upcoming_events})

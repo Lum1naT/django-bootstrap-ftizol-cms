@@ -1,14 +1,88 @@
 {% extends "./_base.html.twig" %}
 
+{% block title %}
+{{ title }}
+{% endblock %}
+
 {% block body %}
 
 
     <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-    {{{{ 'My Account'|title }}
-}}
-    <h1>Worker Account Page</h1>
+    <div class="container">
+  <div class="row">
+    <div class="col-md-9 col-12 float-left">
+            <h1>Worker Account Page</h1>
+
+        <form method="post">
+    <div class="mb-3">
+            <label for="emailControl" class="form-label">Email</label>
+  <input type="email" class="form-control" id="emailControl" placeholder="your@email.com" value={{worker.email}} autofocus>
+    </div>
+
+    <div class="mb-3">
+    <label for="phoneNumberControl" class="form-label">Telefonní číslo</label>
+  <input type="phone" pattern="/(([+][(]?[0-9]{1,3}[)]?)|([(]?[0-9]{4}[)]?))\s*[)]?[-\s\.]?[(]?[0-9]{1,3}[)]?([-\s\.]?[0-9]{3})([-\s\.]?[0-9]{3,4})/gm" class="form-control" id="phoneNumberControl" placeholder="+420123456789" value={{worker.phone_number}}>
+    </div>
+
+
+        <div class="mb-3">
+    <label for="FirstNameControl" class="form-label">Jméno:</label>
+  <input type="text" class="form-control" id="fistNameControl" placeholder="Jan" value={{worker.first_name}}>
+    </div>
+
+
+        <div class="mb-3">
+    <label for="LastNameControl" class="form-label">Příjmení:</label>
+  <input type="text" class="form-control" id="lastNameControl" placeholder="Novák" value={{worker.last_name}}>
+    </div>
+
+
+        <div class="mb-3">
+    <label for="BankAccountNumberControl" class="form-label">Číslo účtu na výplaty :)</label>
+  <input type="text" class="form-control" id="bankAccountNumberControl" placeholder="122344566788900/1234" value={{worker.bank_account_number}}>
+    </div>
+
+
+
+           <div class="mb-3">
+    <label for="DOBControl" class="form-label">Datum narození:</label>
+  <input type="date" class="form-control" id="DOBControl" placeholder="dd-mm-yyyy" value={{worker.date_of_birth}}>
+    </div>
+
+
+
+
+  <button type="submit" class="btn btn-primary">Uložit</button>
+</div>
+</form>
+
+    <div class="col-12 col-md-3 change-password">
+                 <form method="post">
+    <h2>Změna hesla: </h2>
+
+        <div class="mb-3">
+    <label for="PasswordControl" class="form-label">Aktuální heslo:</label>
+  <input type="password" class="form-control" id="passwordControl" placeholder="Stávající heslo">
+    </div>
+
+            <div class="mb-3">
+    <label for="PasswordControl" class="form-label">Nové heslo:</label>
+  <input type="password" class="form-control" id="passwordControl" placeholder="Nové heslo">
+
+    <button type="submit" class="btn btn-primary">Změnit heslo</button>
+            </form>
+
+    </div>
+     
+    </div>
+</div>
+
+
+
+
+</div>
 
 
 {% endblock %}

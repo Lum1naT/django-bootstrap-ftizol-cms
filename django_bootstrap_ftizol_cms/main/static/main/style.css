@@ -4,5 +4,45 @@ body {
   text-align: center !important;
   margin: auto !important;
 }
+body button {
+  background-color: white !important;
+  color: #a94500 !important;
+}
+body button:hover {
+  background-color: #a94500 !important;
+  color: white !important;
+}
+body input:focus {
+  background-color: #646464 !important;
+  border: 5px solid #a94500 !important;
+  color: white !important;
+}
+
+.worker-not-found {
+  color: #ff883f !important;
+}
+
+.change-password h2 {
+  margin-top: 1.5rem !important;
+}
+.change-password button {
+  margin-top: 1rem;
+}
+
+.row-striped:nth-of-type() {
+  text-align: left;
+}
+
+.row-striped:nth-of-type(odd) {
+  text-align: left;
+}
+
+.row-striped:nth-of-type(even) {
+  text-align: left;
+}
+
+.row-striped {
+  padding: 15px 0;
+}
 
 /*# sourceMappingURL=style.css.map */
