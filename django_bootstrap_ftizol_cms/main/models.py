@@ -79,7 +79,10 @@ class ft_Worker(models.Model):
     password = models.CharField(
         ("Heslo"), max_length=15, default=str(generate_password()), blank=True)
     date_of_birth = models.DateField(
-        ("Datum narození"), null=True, blank=True)
+        ("Datum narození"), null=True, blank=True, default="2000-01-01")
+
+    power = models.IntegerField(
+        ("Síla"), null=True, blank=True, default=10,)
 
     def __str__(self):
         return '%s %s' % (self.first_name, self.last_name)
@@ -184,16 +187,22 @@ class ft_Upcoming_Event(models.Model):
 
         self.year = self.start_date.year
 
+        avg_power = 1
+        divisor = 0
+        for worker in self.workers_ready.all():
+            avg_power *= worker.power
+            divisor += 1
+
         meters_per_day = 1
         number_of_days = abs(self.start_day - self.end_day)+1
         if(self.wall_type == 'Kamen'):
-            meters_per_day *= 10
+            meters_per_day *= 1.2 * avg_power
 
         elif(self.wall_type == '50/50'):
-            meters_per_day *= 15
+            meters_per_day *= 1.5 * avg_power
 
         elif(self.wall_type == 'Cihla'):
-            meters_per_day *= 20
+            meters_per_day *= 2 * avg_power
 
         self.workers_required = int((int(self.total_meters) /
                                      (int(meters_per_day * number_of_days))))

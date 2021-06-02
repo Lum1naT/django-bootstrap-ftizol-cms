@@ -18,7 +18,7 @@ class ft_Worker_Admin(admin.ModelAdmin):
     list_display = ["get_name", "get_call_phone",
                     "bank_account_number"]
     fields = ["first_name", "last_name", "display_name", "gender", "phone_number",
-              "email", "bank_account_number", "username", "password", "date_of_birth"]
+              "email", "bank_account_number", "username", "password", "date_of_birth", "power"]
 
     search_fields = ["first_name", "last_name", "gender", "phone_number",
                      "email", "bank_account_number", "username"]
@@ -154,16 +154,25 @@ class ft_Event_Admin(admin.ModelAdmin):
 
 @admin.register(ft_Upcoming_Event)
 class ft_Event_Admin(admin.ModelAdmin):
-    list_display = ["name", "place", "show_workers", "show_capacity"]
+    list_display = ["name", "place", "count_workers",  "show_workers",
+                    "show_capacity", "total_meters"]
     list_filter = ["place", "start_month", "year"]
 
     fields = ["name", "start_date", "end_date", "description",
-              "place", "total_meters", "wall_type", "workers_required"]
+              "place", "total_meters", "wall_type", "workers_required", "workers_ready"]
 
     readonly_fields = ["workers_required", ]
 
     search_fields = ["name", "last_name", "display_name", "gender", "phone_number",
                      "email", "bank_account_number", "username", "password", "date_of_birth"]
+
+    def count_workers(self, obj):
+        result = 0
+        if obj.workers_ready.all():
+            for worker in obj.workers_ready.all():
+                result += 1
+        return mark_safe(result)
+    count_workers.short_description = "#    "
 
     def show_workers(self, obj):
         result = ""
@@ -189,6 +198,9 @@ class ft_Event_Admin(admin.ModelAdmin):
 
     show_capacity.short_description = 'Kapacita'
     show_capacity.allow_tags = True
+
+    class Meta:
+        ordering = ['workers_ready']  # Sort in asc order
 
     '''
     def view_workers(self, obj):

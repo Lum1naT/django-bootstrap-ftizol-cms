@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from django.template.loader import render_to_string
 from django.http import HttpResponse
+from django.urls import reverse
 
 
 from .forms import WorkerAuthMailForm
@@ -73,7 +74,7 @@ def upcoming_event_detail(request, event_id):
     if(event_found):
         # OK
         session_id = request.session['id']
-        return render(request, 'main/upcoming_event_detail.html.twig', {'title': str(event_id) + 'Na ' + str(session_id) + 'dcházející akce ', 'event': event_found, 'session_id': session_id, 'upcoming_events': all_upcoming_events})
+        return render(request, 'main/upcoming_event_detail.html.twig', {'title': 'Nadcházející akce ', 'event': event_found, 'session_id': session_id, 'upcoming_events': all_upcoming_events})
     else:
         # not found
         return HttpResponse("Bohužel jsme takovou akci nenašli :(")
@@ -100,10 +101,12 @@ def event_signup(request):
                 event.workers_ready.remove(worker)
 
             event.save()
-            pass
+
+            return redirect(reverse('upcoming_event_detail', kwargs={"event_id": event_found.id}))
 
     else:
-        pass
+        return redirect('upcoming_events')
+
     all_upcoming_events = ft_Upcoming_Event.objects.all()
 
     if(event_found):
