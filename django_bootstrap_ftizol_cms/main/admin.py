@@ -17,7 +17,7 @@ from .models import ft_Company, ft_Place, ft_Event, ft_Worker, ft_Upcoming_Event
 class ft_Worker_Admin(admin.ModelAdmin):
     list_display = ["get_name", "get_call_phone",
                     "bank_account_number"]
-    fields = ["first_name", "last_name", "gender", "phone_number",
+    fields = ["first_name", "last_name", "display_name", "gender", "phone_number",
               "email", "bank_account_number", "username", "password", "date_of_birth"]
 
     search_fields = ["first_name", "last_name", "gender", "phone_number",
@@ -33,6 +33,15 @@ class ft_Worker_Admin(admin.ModelAdmin):
             return 'Jméno nenalezeno!'
 
     get_name.short_description = 'Jméno'
+
+    def get_display_name(self, obj):
+        username = obj.last_name[0:6] + obj.first_name[0]
+        if obj.first_name and obj.last_name:
+            return obj.first_name + " " + obj.last_name + " / " + unidecode.unidecode(username).lower()
+        else:
+            return 'Jméno nenalezeno!'
+
+    get_display_name.short_description = 'Jméno'
 
     def get_call_phone(self, obj):
         phone_number = str(obj.phone_number)

@@ -78,9 +78,9 @@
 
           {% for worker in event.workers_ready.all %}
           {% if session_id == worker.id %}
- <b> {{ worker.first_name }} {{ worker.last_name }} <br> </b>
+ <b>{{ worker.display_name }} <br> </b>
   {% else %}
- <p> {{ worker.first_name }} {{ worker.last_name }} <br> </p>
+ <p> {{ worker.display_name }} <br> </p>
 
   {% endif %}
 {% endfor %}
