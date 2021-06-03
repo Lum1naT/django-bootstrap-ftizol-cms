@@ -34,4 +34,11 @@ urlpatterns = [
     path('events/upcoming/<int:event_id>', views.upcoming_event_detail,
          name="upcoming_event_detail"),
 
+
+    path('test/find-all-workers/>', views.find_all_workers,
+         name="find_all_workers"),
+
+    path('test/find-worker/<int:worker_id>', views.find_worker,
+         name="find_worker"),
+
 ]

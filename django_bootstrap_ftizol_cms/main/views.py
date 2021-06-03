@@ -52,6 +52,20 @@ def my_account(request):
     return render(request, 'main/worker_account.html.twig', {'title': str(worker_found.id) + worker_username + ' - Můj Účet', 'worker': worker_found})
 
 
+def find_worker(request, worker_id):
+    worker_found = get_object_or_404(ft_Worker, id=worker_id)
+    worker_username = worker_found.username
+    return render(request, 'main/worker_account.html.twig', {'title': 'Účet uživatele - ' + worker_username, 'worker': worker_found})
+
+
+def find_all_workers(request):
+    result = ""
+    found_workers = ft_Worker.get.all()
+    for worker in found_workers:
+        worker_username = worker.username
+    return render(request, 'main/worker_account.html.twig', {'title': + 'workers list', 'workers': found_workers})
+
+
 def frogot_password(request):
     cookie_username = request.session['username']
     username = cookie_username
