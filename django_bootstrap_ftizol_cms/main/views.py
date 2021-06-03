@@ -55,7 +55,7 @@ def my_account(request):
 def find_worker(request, worker_id):
     worker_found = get_object_or_404(ft_Worker, id=worker_id)
     worker_username = worker_found.username
-    return render(request, 'main/worker_account.html.twig', {'title': 'Účet uživatele - ' + worker_username, 'worker': worker_found})
+    return render(request, 'main/worker_detail.html.twig', {'title': 'Účet uživatele - ' + worker_username, 'worker': worker_found})
 
 
 def find_all_workers(request):
